@@ -87,7 +87,7 @@ watchEffect(() => {
     <PlayersDetails @start-game="setStartGame" v-if="!gameState.startGame"/>
 
     <div class="row" v-else>
-        <div class="col-12 mt-4 mb-4 d-flex justify-content-center align-items-center" v-if="!gameState.winner">
+        <div class="col-12 mt-4 mb-4 d-flex justify-content-center align-items-center" v-if="!gameState.isGameOver && !gameState.winner">
             <p class="lead mb-0">Current move belongs to <b>{{ currentPlayer.name }}</b></p>
             <span class="small-tile" :class="{
                 'red': currentPlayer.color === EPlayers.RED,
@@ -95,8 +95,8 @@ watchEffect(() => {
             }"></span>
         </div>
 
-        <div class="col-12 mt-4 mb-4 d-flex justify-content-center align-items-center" v-if="gameState.winner && gameState.isGameOver">
-            <p class="lead mb-0">Congratulation <b>{{ gameState.winner.name }}</b> you won!</p>
+        <div class="col-12 mt-4 mb-4 d-flex justify-content-center align-items-center" v-if="gameState.isGameOver">
+            <p class="lead mb-0" v-if="gameState.winner">Congratulation <b>{{ gameState.winner.name }}</b> you won!</p>
 
             <button
                 class="btn btn-primary ms-2" 

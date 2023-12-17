@@ -9,7 +9,6 @@ export interface TileDetails {
 }
 
 export const setGame = (rows: number, columns: number) => {
-    // store.commit(MutationTypes.RESET_STORE);
     store.commit(MutationTypes.SET_COLUMNS, columns);
     store.commit(MutationTypes.SET_ROWS, rows);
     const arr = Array.from(Array(columns), () => rows - 1);
@@ -110,6 +109,18 @@ export const checkWhoWin = () => {
     }
 };
 
+export const isBoardFull = () => {
+    const board: Array<EPlayers[]> = store.getters.getBoard;
+    const spacesInRows = board.map((row) => row.filter((item) => item === '').length);
+    const sum = spacesInRows.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+    if (sum === 0) {
+        store.commit(MutationTypes.SET_IS_GAME_OVER, true);
+    } else {
+        checkWhoWin();
+    }
+};
+
 export const setPiece = (rowIndex: number, colIndex: number) => {
     if (store.getters.getIsGameOver) {
         return
@@ -141,5 +152,6 @@ export const setPiece = (rowIndex: number, colIndex: number) => {
     newCurrentColumnsData[col] = row;
     store.commit(MutationTypes.SET_CURRENT_COLUMNS, newCurrentColumnsData);
 
-    checkWhoWin();
+    // checkWhoWin();
+    isBoardFull();
 };
