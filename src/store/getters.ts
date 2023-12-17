@@ -3,23 +3,25 @@ import { GetterTree } from 'vuex';
 import { EPlayers, IPlayer, State } from './state';
 
 export type Getters = {
-  columns(state): number;
-  rows(state): number;
-  board(state: State): Array<EPlayers[]>;
-  currentColumns(state: State): number[];
-  playerOne(state: State): IPlayer;
-  playerTwo(state: State): IPlayer;
-  currentPlayer(state: State): EPlayers;
-  isGameOver(sate: State): boolean;
+  getColumns(state: State): number;
+  getRows(state: State): number;
+  getBoard(state: State): Array<EPlayers[]>;
+  getCurrentColumns(state: State): number[];
+  getPlayerOne(state: State): IPlayer;
+  getPlayerTwo(state: State): IPlayer;
+  getCurrentPlayer(state: State): EPlayers;
+  getIsGameOver(sate: State): boolean;
+  getWinner(state: State): IPlayer | null;
 };
 
 export const getters: GetterTree<State, State> & Getters = {
-  columns: (state) => state.columns,
-  rows: (state) => state.rows,
-  board: (state) => state.board,
-  currentColumns: (state) => state.currentColumns,
-  playerOne: (state) => state.playerOne,
-  playerTwo: (state) => state.playerTwo,
-  currentPlayer: (state) => state.currentPlayer,
-  isGameOver: (state) => state.isGameOver,
+  getColumns: (state) => state.columns,
+  getRows: (state) => state.rows,
+  getBoard: (state) => state.board,
+  getCurrentColumns: (state) => state.currentColumns,
+  getPlayerOne: (state) => state.playerOne,
+  getPlayerTwo: (state) => state.playerTwo,
+  getCurrentPlayer: (state) => state.currentPlayer,
+  getIsGameOver: (state) => state.isGameOver,
+  getWinner: (state) => state.winner,
 };

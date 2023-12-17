@@ -9,6 +9,7 @@ export interface TileDetails {
 }
 
 export const setGame = (rows: number, columns: number) => {
+    // store.commit(MutationTypes.RESET_STORE);
     store.commit(MutationTypes.SET_COLUMNS, columns);
     store.commit(MutationTypes.SET_ROWS, rows);
     const arr = Array.from(Array(columns), () => rows - 1);
@@ -30,9 +31,9 @@ export const setGame = (rows: number, columns: number) => {
 };
 
 export const setWinner = (row: number, column: number) => {
-    const board = store.getters.board;
-    const playerOne = store.getters.playerOne;
-    const playerTwo = store.getters.playerTwo;
+    const board = store.getters.getBoard;
+    const playerOne = store.getters.getPlayerOne;
+    const playerTwo = store.getters.getPlayerTwo;
 
     if (board[row][column] === playerOne.color) {  
         store.commit(MutationTypes.SET_WINNER, playerOne);         
@@ -44,9 +45,9 @@ export const setWinner = (row: number, column: number) => {
 };
 
 export const checkWhoWin = () => {
-    const rows = store.getters.rows;
-    const columns = store.getters.columns;
-    const board = store.getters.board;
+    const rows = store.getters.getRows;
+    const columns = store.getters.getColumns;
+    const board = store.getters.getBoard;
 
     // horizontal
     for (let row = 0; row < rows; row++) {
@@ -110,24 +111,24 @@ export const checkWhoWin = () => {
 };
 
 export const setPiece = (rowIndex: number, colIndex: number) => {
-    if (store.getters.isGameOver) {
+    if (store.getters.getIsGameOver) {
         return
     }
 
     let row = rowIndex;
     let col = colIndex;
 
-    row = store.getters.currentColumns[col];
+    row = store.getters.getCurrentColumns[col];
 
     if (row < 0) {
         return;
     }
 
-    const currentBoard = [...store.getters.board];
-    currentBoard[row][col] = store.getters.currentPlayer;
+    const currentBoard = [...store.getters.getBoard];
+    currentBoard[row][col] = store.getters.getCurrentPlayer;
     store.commit(MutationTypes.SET_BOARD, currentBoard);
 
-    if (store.getters.currentPlayer == EPlayers.RED) {
+    if (store.getters.getCurrentPlayer == EPlayers.RED) {
         store.commit(MutationTypes.SET_CURRENT_PLAYER, EPlayers.YELLOW);
         
     } else {
@@ -136,7 +137,7 @@ export const setPiece = (rowIndex: number, colIndex: number) => {
 
     row -= 1;
 
-    const newCurrentColumnsData = [...store.getters.currentColumns];
+    const newCurrentColumnsData = [...store.getters.getCurrentColumns];
     newCurrentColumnsData[col] = row;
     store.commit(MutationTypes.SET_CURRENT_COLUMNS, newCurrentColumnsData);
 

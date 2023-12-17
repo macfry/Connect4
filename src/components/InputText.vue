@@ -80,7 +80,7 @@ watch(
 </script>
 
 <template>
-    <div class="form-group">
+    <div class="form-group w-100">
         <label :for="props.id || `${props.name}Input`" class="form-label"
             :class="{ 'form-label--required': props.required }" v-if="props.label">
             {{ props.label }}

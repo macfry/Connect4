@@ -10,7 +10,7 @@ export type Mutations<S = State> = {
     [MutationTypes.SET_CURRENT_PLAYER](state: S, currentPlayer: EPlayers): void;
     [MutationTypes.SET_BOARD](state: S, board: Array<EPlayers[]>): void;
     [MutationTypes.SET_CURRENT_COLUMNS](state: S, currentColumns: number[]): void;
-    [MutationTypes.SET_PLAYER](state: S, payload: { player: IPlayer, number: number}): void;
+    [MutationTypes.SET_PLAYER](state: S, payload: { playerName: string, number: number}): void;
     [MutationTypes.SET_WINNER](state: S, winner: IPlayer): void;
     [MutationTypes.RESET_STORE](state: S): void;
 };
@@ -34,17 +34,31 @@ export const mutations: MutationTree<State> & Mutations = {
     [MutationTypes.SET_CURRENT_COLUMNS](state: State, currentColumns: number[]) {
         state.currentColumns = currentColumns;
     },
-    [MutationTypes.SET_PLAYER](state: State, payload: { player: IPlayer, number: number}) {
+    [MutationTypes.SET_PLAYER](state: State, payload: { playerName: string, number: number}) {
         if (payload.number === 1) {
-            state.playerOne = payload.player;
+            state.playerOne = {
+                name: payload.playerName,
+                color: EPlayers.RED,
+            };
         } else if (payload.number === 2) {
-            state.playerTwo = payload.player;
+            state.playerTwo = {
+                name: payload.playerName,
+                color: EPlayers.YELLOW,
+            };
         }
     },
     [MutationTypes.SET_WINNER](state: State, winner: IPlayer) {
         state.winner = winner;
     },
     [MutationTypes.RESET_STORE](state: State) {
-        state = defaultState;
+        state.columns = defaultState.columns;
+        state.rows = defaultState.rows;
+        state.board = defaultState.board;
+        state.currentColumns = defaultState.currentColumns;
+        state.playerOne = defaultState.playerOne
+        state.playerTwo = defaultState.playerTwo;
+        state.currentPlayer = defaultState.currentPlayer;
+        state.isGameOver = defaultState.isGameOver;
+        state.winner = defaultState.winner;
     },
 };

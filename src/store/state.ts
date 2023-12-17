@@ -38,4 +38,4 @@ export const defaultState: State = {
     winner: null,
 };
   
-export const state: State = JSON.parse(JSON.stringify(defaultState));
+export const state: State = JSON.parse(JSON.stringify({ ...defaultState }));
