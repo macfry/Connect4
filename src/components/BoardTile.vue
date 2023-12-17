@@ -24,21 +24,16 @@ const props = defineProps({
 const emits = defineEmits(['tileSelected']);
 
 const setTile = (event: Event) => {
-    emits('tileSelected', event.target.id);
+    emits('tileSelected', event?.target?.id);
 };
 </script>
 
 <template>
-    <div 
-        :id="`${rowId}-${colId}`" 
-        class="tile" 
-        :style="{ width: `calc(${props.size}px - 0.5em)`, height: `calc(${props.size}px - 0.5em)` }"
-        :class="{
+    <div :id="`${rowId}-${colId}`" class="tile"
+        :style="{ width: `calc(${props.size}px - 0.5em)`, height: `calc(${props.size}px - 0.5em)` }" :class="{
             'red': props.colVal === EPlayers.RED,
             'yellow': props.colVal === EPlayers.YELLOW,
-        }"
-        @click="setTile"
-    ></div>
+        }" @click="setTile"></div>
 </template>
 
 <style>
@@ -50,10 +45,10 @@ const setTile = (event: Event) => {
 }
 
 .red {
-    background-color: red;
+    background-color: var(--player-one-color);
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: var(--player-two-color);
 }
 </style>

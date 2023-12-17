@@ -10,4 +10,6 @@
   -moz-osx-font-smoothing: grayscale;
   --board-size: 400px;
   --bg-color: white;
+  --player-one-color: red;
+  --player-two-color: yellow;
 }

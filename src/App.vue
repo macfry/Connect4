@@ -4,9 +4,8 @@ import Board from './components/Board.vue';
 
 <template>
   <div class="container">
-    <Board/>
-  </div> 
+    <Board />
+  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
